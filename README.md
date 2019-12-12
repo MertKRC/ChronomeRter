@@ -1,7 +1,7 @@
 # ChronomeRter
 Basic chronometer app for Piri Reis University, Mobile Programming project.
 
-##Logo
+## Application Logo
 ![ChronomeRter Logo](https://raw.githubusercontent.com/MertKRC/ChronomeRter/master/Github/ReadmeImg/icon.png)
 
 ## Application onCreate state
