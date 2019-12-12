@@ -1,6 +1,8 @@
 # ChronomeRter
 Basic chronometer app for Piri Reis University, Mobile Programming project.
 
+You can download the APK file from [here.](https://github.com/MertKRC/ChronomeRter/raw/master/app/release/app-release.apk)
+
 ## Application Logo
 ![ChronomeRter Logo](https://raw.githubusercontent.com/MertKRC/ChronomeRter/master/Github/ReadmeImg/icon.png)
 
