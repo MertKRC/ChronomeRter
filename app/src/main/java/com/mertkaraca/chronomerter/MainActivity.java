@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Layout;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,7 +14,8 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Creating our variables globally to access them everywhere we want, We'll to determine them later
+    /*Creating our variables globally to access
+    them everywhere we want, We'll to determine them later*/
     Button btnStart,btnFinish;
     Chronometer chronometer;
     Animation rotate;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Writing what will happen on we press Start button
+        //Writing what will happen on we press Stop button
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
