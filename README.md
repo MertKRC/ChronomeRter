@@ -19,6 +19,8 @@ Dec 13, 2019 Features;
 
 Finished project and pushed files to git.
 
+Added presentation files in the project too.
+
 I'll go back to the project if I can spare time.
 
 -------------------------------
