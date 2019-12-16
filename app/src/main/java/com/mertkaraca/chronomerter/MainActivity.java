@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     /*Creating our variables globally to access
     them everywhere we want, We'll to determine them later*/
-    Button btnStart,btnFinish;
+    Button btnStart,btnPause,btnResume,btnReset;
     Chronometer chronometer;
     Animation rotate;
     ImageView imageView;
@@ -29,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Determining variables values with their own id's which we dedicated in activity_main.xml
         btnStart = findViewById(R.id.btnStart);
-        btnFinish = findViewById(R.id.btnFinish);
+        btnPause = findViewById(R.id.btnPause);
+        btnResume = findViewById(R.id.btnResume);
+        btnReset = findViewById(R.id.btnReset);
         chronometer = findViewById(R.id.chronometer);
         imageView = findViewById(R.id.imageView);
 
@@ -48,12 +50,39 @@ public class MainActivity extends AppCompatActivity {
                 chronometer.start();
                 //After we start chronometer object start button going back and finish button come forward
                 btnStart.setVisibility(View.INVISIBLE);
-                btnFinish.setVisibility(View.VISIBLE);
+                btnPause.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chronometer.stop();
+                pause = SystemClock.elapsedRealtime() - chronometer.getBase();
+                imageView.clearAnimation();
+
+
+                btnPause.setVisibility(View.INVISIBLE);
+                btnResume.setVisibility(View.VISIBLE);
+                btnReset.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chronometer.setBase(SystemClock.elapsedRealtime()-pause);
+                chronometer.start();
+                imageView.startAnimation(rotate);
+
+                btnResume.setVisibility(View.INVISIBLE);
+                btnReset.setVisibility(View.INVISIBLE);
+                btnPause.setVisibility(View.VISIBLE);
             }
         });
 
         //Writing what will happen on we press Stop button
-        btnFinish.setOnClickListener(new View.OnClickListener() {
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chronometer.stop();
@@ -65,8 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 rotate.cancel();
                 imageView.setAnimation(rotate);
                 //This time Start button come forward and Finish button goes backward
+                btnReset.setVisibility(View.INVISIBLE);
+                btnResume.setVisibility(View.INVISIBLE);
                 btnStart.setVisibility(View.VISIBLE);
-                btnFinish.setVisibility(View.INVISIBLE);
             }
         });
     }
