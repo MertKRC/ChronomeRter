@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.text.Layout;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Keeps screen on while view is open
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         //Determining variables values with their own id's which we dedicated in activity_main.xml
         btnStart = findViewById(R.id.btnStart);
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //This object getting it's functionality from rotation.xml
         rotate = AnimationUtils.loadAnimation(MainActivity.this,R.anim.rotation);
 
-        //Writing what will happen on we press Start button
+        //Start Button
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,34 +56,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Stop Button
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Stops chronometer visually
                 chronometer.stop();
+                //We are using this expression to use it Start and Resume buttons
                 pause = SystemClock.elapsedRealtime() - chronometer.getBase();
+                //Stops and resets the animation
                 imageView.clearAnimation();
 
-
+                //When we press the Stop button, the Stop button is invisible,
+                //and the Resume and Finish buttons are visible.
                 btnPause.setVisibility(View.INVISIBLE);
                 btnResume.setVisibility(View.VISIBLE);
                 btnReset.setVisibility(View.VISIBLE);
             }
         });
 
+        //Resume Button
         btnResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //We should use this expression to resume the chronometer
+                //It basically prevent chronometer from elapsed time
                 chronometer.setBase(SystemClock.elapsedRealtime()-pause);
+                //Activates chronometer visually
                 chronometer.start();
+                //Starts turning animation
                 imageView.startAnimation(rotate);
 
+                //When we press the Resume button, the Resume and Reset buttons become invisible,
+                //and the Pause button becomes visible.
                 btnResume.setVisibility(View.INVISIBLE);
                 btnReset.setVisibility(View.INVISIBLE);
                 btnPause.setVisibility(View.VISIBLE);
             }
         });
 
-        //Writing what will happen on we press Stop button
+        //Reset Button
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
                 //imageView stop's rotating
                 rotate.cancel();
                 imageView.setAnimation(rotate);
-                //This time Start button come forward and Finish button goes backward
+
+                //When we press the Reset button, the Resume and Finish buttons become invisible
+                //and the Start button becomes visible.
                 btnReset.setVisibility(View.INVISIBLE);
                 btnResume.setVisibility(View.INVISIBLE);
                 btnStart.setVisibility(View.VISIBLE);
